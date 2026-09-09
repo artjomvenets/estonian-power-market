@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 from market_data import load_prices
 
@@ -145,4 +146,13 @@ summary = comparison.groupby("day_type").agg(
     median_difference=("evening_minus_afternoon", "median"),
 )
 print(summary.round(2).to_string())
+# Save the chart beside the project code in an outputs folder.
+output_dir = Path(__file__).resolve().parent / "outputs"
+output_dir.mkdir(exist_ok=True)
+
+chart_path = output_dir / "hourly_price_profile.png"
+fig.savefig(chart_path, dpi=180, bbox_inches="tight")
+
+print("\nChart saved to:", chart_path)
+
 plt.show()

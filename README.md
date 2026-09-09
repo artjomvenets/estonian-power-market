@@ -78,17 +78,9 @@ The data loader:
 Hourly prices are arithmetic averages of four quarter-hour prices.
 The profile then summarises those hourly values across days.
 
-### Source cross-check
+### Pipeline consistency check
 
-For **7 September 2026**, I compared the saved Volton data with
-[Elering](https://dashboard.elering.ee/en/nps/price), joining records
-by UTC delivery timestamp.
-
-All **96 timestamps and prices matched**, with zero numerical difference.
-
-This verifies consistency for one day through a separate publication
-channel. Both channels may share upstream data; this does not
-independently verify the entire dataset.
+For 7 September 2026, all 96 delivery timestamps and prices matched between Volton’s archive and Elering’s API. Because Elering is one of Volton’s stated upstream sources, this checks consistency between the feeds and our timestamp handling; it does not independently validate the underlying market prices.
 
 ## Limitations
 

@@ -1,92 +1,13 @@
-import requests
 import pandas as pd
+import matplotlib.pyplot as plt
 
-# Four complete weeks, ending on the day we already inspected.
+from market_data import load_prices
+
+# Load the same four-week period from our validated cache.
 start_date = "2026-08-11"
 end_date = "2026-09-07"
 
-dates = pd.date_range(start=start_date, end=end_date, freq="D")
-
-# Collect valid daily tables and record unavailable archives separately.
-daily_tables = []
-missing_dates = []
-
-with requests.Session() as session:
-    for date in dates:
-        date_text = date.strftime("%Y-%m-%d")
-        url = (
-            "https://public-data.volton.energy/v1/day-ahead-spot/"
-            f"{date_text}.json"
-        )
-
-        print("Downloading:", date_text, flush=True)
-        response = session.get(url, timeout=30)
-
-        # A missing archive is recorded, never replaced with invented prices.
-        if response.status_code == 404:
-            missing_dates.append(date_text)
-            print("  Archive unavailable")
-            continue
-
-        # Stop for other HTTP errors instead of treating them as missing data.
-        response.raise_for_status()
-        data = response.json()
-
-        # Verify that the archive describes the expected dataset.
-        meta = data["meta"]
-
-        if meta.get("unit") != "EUR/MWh":
-            raise ValueError(f"{date_text}: unexpected price unit")
-
-        if meta.get("resolution_minutes") != 15:
-            raise ValueError(f"{date_text}: unexpected interval length")
-
-        # Build and prepare the daily table.
-        df = pd.DataFrame(data["rows"])
-        df["mtu_start"] = pd.to_datetime(df["mtu_start"], utc=True)
-        df["time_estonia"] = df["mtu_start"].dt.tz_convert("Europe/Tallinn")
-        df["price_eur_mwh"] = pd.to_numeric(
-            df["price_eur_mwh"], errors="raise"
-        )
-        df = df.sort_values("mtu_start").reset_index(drop=True)
-
-        # Require every expected interval, exactly once.
-        day_start = pd.Timestamp(date_text, tz="Europe/Tallinn")
-        day_end = day_start + pd.DateOffset(days=1)
-
-        expected = pd.date_range(
-            start=day_start,
-            end=day_end,
-            freq="15min",
-            inclusive="left",
-        )
-
-        actual = pd.DatetimeIndex(df["time_estonia"])
-
-        if not actual.equals(expected):
-            raise ValueError(f"{date_text}: missing, extra, or duplicate intervals")
-
-        if df["price_eur_mwh"].isna().any():
-            raise ValueError(f"{date_text}: missing prices")
-
-        daily_tables.append(df)
-
-# Report coverage before calculating anything.
-print("\nCOVERAGE")
-print("Requested days:", len(dates))
-print("Valid days:", len(daily_tables))
-print("Unavailable archives:", len(missing_dates))
-
-if missing_dates:
-    print("Unavailable dates:", ", ".join(missing_dates))
-    raise SystemExit(
-        "Stopped: the requested period is incomplete. "
-        "Review coverage before drawing conclusions."
-    )
-
-# Stack the daily tables into one chronological table.
-history = pd.concat(daily_tables, ignore_index=True)
-history = history.sort_values("mtu_start").reset_index(drop=True)
+history = load_prices(start_date, end_date)
 
 # Add labels that will help us compare days.
 history["delivery_date"] = history["time_estonia"].dt.date
@@ -184,7 +105,7 @@ fig.text(
 )
 fig.tight_layout(rect=(0, 0.04, 1, 1))
 
-plt.show()
+
 # Compare evening and afternoon prices within each individual day.
 # Each selected number is the START of a one-hour interval.
 afternoon_hours = [13, 14, 15]       # 13:00–16:00
@@ -224,3 +145,4 @@ summary = comparison.groupby("day_type").agg(
     median_difference=("evening_minus_afternoon", "median"),
 )
 print(summary.round(2).to_string())
+plt.show()

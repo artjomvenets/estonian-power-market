@@ -1,0 +1,408 @@
+{
+  "retrieved_at_utc": "2026-09-09T16:03:51.416561+00:00",
+  "source_url": "https://public-data.volton.energy/v1/day-ahead-spot/2026-08-13.json",
+  "payload": {
+    "schema_version": "1.0",
+    "generated_at": "2026-08-13T21:00:00Z",
+    "meta": {
+      "source": "Nord Pool / ENTSO-E Transparency Platform",
+      "dataset": "day-ahead-spot",
+      "spatial_coverage": "EE bidding zone",
+      "unit": "EUR/MWh",
+      "resolution_minutes": 15,
+      "date_modified": "2026-08-13T21:00:00Z",
+      "license": {
+        "name": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "attribution": "Source: Volton Technology (public-data.volton.energy), based on Elering / Baltic Transparency Dashboard / ENTSO-E public data."
+      },
+      "temporal_coverage": "2026-08-13T00:00:00+03:00/2026-08-13T23:59:59+03:00"
+    },
+    "rows": [
+      {
+        "mtu_start": "2026-08-12T21:00:00Z",
+        "price_eur_mwh": 153.13
+      },
+      {
+        "mtu_start": "2026-08-12T21:15:00Z",
+        "price_eur_mwh": 150.85
+      },
+      {
+        "mtu_start": "2026-08-12T21:30:00Z",
+        "price_eur_mwh": 151.15
+      },
+      {
+        "mtu_start": "2026-08-12T21:45:00Z",
+        "price_eur_mwh": 150.68
+      },
+      {
+        "mtu_start": "2026-08-12T22:00:00Z",
+        "price_eur_mwh": 152.33
+      },
+      {
+        "mtu_start": "2026-08-12T22:15:00Z",
+        "price_eur_mwh": 145.02
+      },
+      {
+        "mtu_start": "2026-08-12T22:30:00Z",
+        "price_eur_mwh": 145.38
+      },
+      {
+        "mtu_start": "2026-08-12T22:45:00Z",
+        "price_eur_mwh": 139.4
+      },
+      {
+        "mtu_start": "2026-08-12T23:00:00Z",
+        "price_eur_mwh": 145.62
+      },
+      {
+        "mtu_start": "2026-08-12T23:15:00Z",
+        "price_eur_mwh": 141.08
+      },
+      {
+        "mtu_start": "2026-08-12T23:30:00Z",
+        "price_eur_mwh": 137.54
+      },
+      {
+        "mtu_start": "2026-08-12T23:45:00Z",
+        "price_eur_mwh": 135.24
+      },
+      {
+        "mtu_start": "2026-08-13T00:00:00Z",
+        "price_eur_mwh": 137.59
+      },
+      {
+        "mtu_start": "2026-08-13T00:15:00Z",
+        "price_eur_mwh": 133.44
+      },
+      {
+        "mtu_start": "2026-08-13T00:30:00Z",
+        "price_eur_mwh": 134.42
+      },
+      {
+        "mtu_start": "2026-08-13T00:45:00Z",
+        "price_eur_mwh": 132.61
+      },
+      {
+        "mtu_start": "2026-08-13T01:00:00Z",
+        "price_eur_mwh": 129.97
+      },
+      {
+        "mtu_start": "2026-08-13T01:15:00Z",
+        "price_eur_mwh": 130.68
+      },
+      {
+        "mtu_start": "2026-08-13T01:30:00Z",
+        "price_eur_mwh": 133.81
+      },
+      {
+        "mtu_start": "2026-08-13T01:45:00Z",
+        "price_eur_mwh": 132.36
+      },
+      {
+        "mtu_start": "2026-08-13T02:00:00Z",
+        "price_eur_mwh": 138.2
+      },
+      {
+        "mtu_start": "2026-08-13T02:15:00Z",
+        "price_eur_mwh": 143.06
+      },
+      {
+        "mtu_start": "2026-08-13T02:30:00Z",
+        "price_eur_mwh": 144.47
+      },
+      {
+        "mtu_start": "2026-08-13T02:45:00Z",
+        "price_eur_mwh": 144.53
+      },
+      {
+        "mtu_start": "2026-08-13T03:00:00Z",
+        "price_eur_mwh": 149.15
+      },
+      {
+        "mtu_start": "2026-08-13T03:15:00Z",
+        "price_eur_mwh": 153.21
+      },
+      {
+        "mtu_start": "2026-08-13T03:30:00Z",
+        "price_eur_mwh": 149.99
+      },
+      {
+        "mtu_start": "2026-08-13T03:45:00Z",
+        "price_eur_mwh": 147.64
+      },
+      {
+        "mtu_start": "2026-08-13T04:00:00Z",
+        "price_eur_mwh": 163.2
+      },
+      {
+        "mtu_start": "2026-08-13T04:15:00Z",
+        "price_eur_mwh": 160.53
+      },
+      {
+        "mtu_start": "2026-08-13T04:30:00Z",
+        "price_eur_mwh": 159.2
+      },
+      {
+        "mtu_start": "2026-08-13T04:45:00Z",
+        "price_eur_mwh": 146.97
+      },
+      {
+        "mtu_start": "2026-08-13T05:00:00Z",
+        "price_eur_mwh": 152.8
+      },
+      {
+        "mtu_start": "2026-08-13T05:15:00Z",
+        "price_eur_mwh": 142.39
+      },
+      {
+        "mtu_start": "2026-08-13T05:30:00Z",
+        "price_eur_mwh": 133.01
+      },
+      {
+        "mtu_start": "2026-08-13T05:45:00Z",
+        "price_eur_mwh": 130.33
+      },
+      {
+        "mtu_start": "2026-08-13T06:00:00Z",
+        "price_eur_mwh": 142.42
+      },
+      {
+        "mtu_start": "2026-08-13T06:15:00Z",
+        "price_eur_mwh": 134.19
+      },
+      {
+        "mtu_start": "2026-08-13T06:30:00Z",
+        "price_eur_mwh": 129.02
+      },
+      {
+        "mtu_start": "2026-08-13T06:45:00Z",
+        "price_eur_mwh": 99.06
+      },
+      {
+        "mtu_start": "2026-08-13T07:00:00Z",
+        "price_eur_mwh": 119.73
+      },
+      {
+        "mtu_start": "2026-08-13T07:15:00Z",
+        "price_eur_mwh": 80.02
+      },
+      {
+        "mtu_start": "2026-08-13T07:30:00Z",
+        "price_eur_mwh": 70.27
+      },
+      {
+        "mtu_start": "2026-08-13T07:45:00Z",
+        "price_eur_mwh": 66.04
+      },
+      {
+        "mtu_start": "2026-08-13T08:00:00Z",
+        "price_eur_mwh": 79.83
+      },
+      {
+        "mtu_start": "2026-08-13T08:15:00Z",
+        "price_eur_mwh": 70.67
+      },
+      {
+        "mtu_start": "2026-08-13T08:30:00Z",
+        "price_eur_mwh": 72.46
+      },
+      {
+        "mtu_start": "2026-08-13T08:45:00Z",
+        "price_eur_mwh": 77.1
+      },
+      {
+        "mtu_start": "2026-08-13T09:00:00Z",
+        "price_eur_mwh": 97.38
+      },
+      {
+        "mtu_start": "2026-08-13T09:15:00Z",
+        "price_eur_mwh": 66.84
+      },
+      {
+        "mtu_start": "2026-08-13T09:30:00Z",
+        "price_eur_mwh": 53.37
+      },
+      {
+        "mtu_start": "2026-08-13T09:45:00Z",
+        "price_eur_mwh": 46.03
+      },
+      {
+        "mtu_start": "2026-08-13T10:00:00Z",
+        "price_eur_mwh": 53.14
+      },
+      {
+        "mtu_start": "2026-08-13T10:15:00Z",
+        "price_eur_mwh": 48.52
+      },
+      {
+        "mtu_start": "2026-08-13T10:30:00Z",
+        "price_eur_mwh": 54.24
+      },
+      {
+        "mtu_start": "2026-08-13T10:45:00Z",
+        "price_eur_mwh": 52.86
+      },
+      {
+        "mtu_start": "2026-08-13T11:00:00Z",
+        "price_eur_mwh": 57.48
+      },
+      {
+        "mtu_start": "2026-08-13T11:15:00Z",
+        "price_eur_mwh": 50.49
+      },
+      {
+        "mtu_start": "2026-08-13T11:30:00Z",
+        "price_eur_mwh": 47.25
+      },
+      {
+        "mtu_start": "2026-08-13T11:45:00Z",
+        "price_eur_mwh": 41.26
+      },
+      {
+        "mtu_start": "2026-08-13T12:00:00Z",
+        "price_eur_mwh": 47.05
+      },
+      {
+        "mtu_start": "2026-08-13T12:15:00Z",
+        "price_eur_mwh": 45.86
+      },
+      {
+        "mtu_start": "2026-08-13T12:30:00Z",
+        "price_eur_mwh": 48.52
+      },
+      {
+        "mtu_start": "2026-08-13T12:45:00Z",
+        "price_eur_mwh": 56.29
+      },
+      {
+        "mtu_start": "2026-08-13T13:00:00Z",
+        "price_eur_mwh": 49.85
+      },
+      {
+        "mtu_start": "2026-08-13T13:15:00Z",
+        "price_eur_mwh": 50.0
+      },
+      {
+        "mtu_start": "2026-08-13T13:30:00Z",
+        "price_eur_mwh": 59.23
+      },
+      {
+        "mtu_start": "2026-08-13T13:45:00Z",
+        "price_eur_mwh": 76.74
+      },
+      {
+        "mtu_start": "2026-08-13T14:00:00Z",
+        "price_eur_mwh": 56.77
+      },
+      {
+        "mtu_start": "2026-08-13T14:15:00Z",
+        "price_eur_mwh": 70.64
+      },
+      {
+        "mtu_start": "2026-08-13T14:30:00Z",
+        "price_eur_mwh": 81.35
+      },
+      {
+        "mtu_start": "2026-08-13T14:45:00Z",
+        "price_eur_mwh": 117.46
+      },
+      {
+        "mtu_start": "2026-08-13T15:00:00Z",
+        "price_eur_mwh": 90.99
+      },
+      {
+        "mtu_start": "2026-08-13T15:15:00Z",
+        "price_eur_mwh": 129.09
+      },
+      {
+        "mtu_start": "2026-08-13T15:30:00Z",
+        "price_eur_mwh": 139.52
+      },
+      {
+        "mtu_start": "2026-08-13T15:45:00Z",
+        "price_eur_mwh": 147.21
+      },
+      {
+        "mtu_start": "2026-08-13T16:00:00Z",
+        "price_eur_mwh": 155.11
+      },
+      {
+        "mtu_start": "2026-08-13T16:15:00Z",
+        "price_eur_mwh": 160.21
+      },
+      {
+        "mtu_start": "2026-08-13T16:30:00Z",
+        "price_eur_mwh": 199.57
+      },
+      {
+        "mtu_start": "2026-08-13T16:45:00Z",
+        "price_eur_mwh": 244.45
+      },
+      {
+        "mtu_start": "2026-08-13T17:00:00Z",
+        "price_eur_mwh": 229.16
+      },
+      {
+        "mtu_start": "2026-08-13T17:15:00Z",
+        "price_eur_mwh": 200.1
+      },
+      {
+        "mtu_start": "2026-08-13T17:30:00Z",
+        "price_eur_mwh": 305.04
+      },
+      {
+        "mtu_start": "2026-08-13T17:45:00Z",
+        "price_eur_mwh": 310.88
+      },
+      {
+        "mtu_start": "2026-08-13T18:00:00Z",
+        "price_eur_mwh": 324.44
+      },
+      {
+        "mtu_start": "2026-08-13T18:15:00Z",
+        "price_eur_mwh": 154.69
+      },
+      {
+        "mtu_start": "2026-08-13T18:30:00Z",
+        "price_eur_mwh": 154.57
+      },
+      {
+        "mtu_start": "2026-08-13T18:45:00Z",
+        "price_eur_mwh": 152.46
+      },
+      {
+        "mtu_start": "2026-08-13T19:00:00Z",
+        "price_eur_mwh": 222.9
+      },
+      {
+        "mtu_start": "2026-08-13T19:15:00Z",
+        "price_eur_mwh": 199.17
+      },
+      {
+        "mtu_start": "2026-08-13T19:30:00Z",
+        "price_eur_mwh": 202.52
+      },
+      {
+        "mtu_start": "2026-08-13T19:45:00Z",
+        "price_eur_mwh": 173.34
+      },
+      {
+        "mtu_start": "2026-08-13T20:00:00Z",
+        "price_eur_mwh": 153.65
+      },
+      {
+        "mtu_start": "2026-08-13T20:15:00Z",
+        "price_eur_mwh": 160.88
+      },
+      {
+        "mtu_start": "2026-08-13T20:30:00Z",
+        "price_eur_mwh": 165.52
+      },
+      {
+        "mtu_start": "2026-08-13T20:45:00Z",
+        "price_eur_mwh": 170.92
+      }
+    ]
+  }
+}

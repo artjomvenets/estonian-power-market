@@ -3,7 +3,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
-import requests
 
 
 # Locate the cache relative to this script, on either Mac or Windows.
@@ -14,6 +13,9 @@ CACHE_DIR = PROJECT_DIR / "data" / "raw"
 def validate_day(payload, date_text):
     """Convert a daily response to a table and check its contents."""
     meta = payload["meta"]
+
+    if meta.get("dataset") != "day-ahead-spot" or meta.get("spatial_coverage") != "EE bidding zone":
+        raise ValueError(f"{date_text}: unexpected dataset or bidding zone")
 
     if meta.get("unit") != "EUR/MWh":
         raise ValueError(f"{date_text}: unexpected price unit")
@@ -50,7 +52,7 @@ def validate_day(payload, date_text):
     return df
 
 
-def load_prices(start_date, end_date):
+def load_prices(start_date, end_date, *, offline=True, verbose=False):
     """Load validated daily prices from saved files or the API."""
     dates = pd.date_range(start=start_date, end=end_date, freq="D")
 
@@ -63,48 +65,52 @@ def load_prices(start_date, end_date):
     downloaded = 0
     reused = 0
 
-    with requests.Session() as session:
-        for date in dates:
-            date_text = date.strftime("%Y-%m-%d")
-            cache_file = CACHE_DIR / f"{date_text}.json"
+    for date in dates:
+        date_text = date.strftime("%Y-%m-%d")
+        cache_file = CACHE_DIR / f"{date_text}.json"
 
-            if cache_file.exists():
-                saved = json.loads(cache_file.read_text(encoding="utf-8"))
-                df = validate_day(saved["payload"], date_text)
-                reused += 1
+        if cache_file.exists():
+            saved = json.loads(cache_file.read_text(encoding="utf-8"))
+            df = validate_day(saved["payload"], date_text)
+            reused += 1
+            if verbose:
                 print("Cached:    ", date_text)
 
-            else:
-                url = (
-                    "https://public-data.volton.energy/v1/day-ahead-spot/"
-                    f"{date_text}.json"
-                )
+        else:
+            url = (
+                "https://public-data.volton.energy/v1/day-ahead-spot/"
+                f"{date_text}.json"
+            )
 
-                print("Downloading:", date_text, flush=True)
-                response = session.get(url, timeout=30)
-                response.raise_for_status()
+            print("Downloading:", date_text, flush=True)
+            if offline:
+                raise FileNotFoundError(f"Missing snapshot: {cache_file}. No download attempted.")
+            import requests
 
-                payload = response.json()
+            response = requests.get(url, timeout=30)
+            response.raise_for_status()
 
-                # Validate before saving a new response.
-                df = validate_day(payload, date_text)
+            payload = response.json()
 
-                saved = {
-                    "retrieved_at_utc": datetime.now(timezone.utc).isoformat(),
-                    "source_url": url,
-                    "payload": payload,
-                }
+            # Validate before saving a new response.
+            df = validate_day(payload, date_text)
 
-                # Write to a temporary file first, then rename it.
-                temporary = cache_file.with_suffix(".tmp")
-                temporary.write_text(
-                    json.dumps(saved, indent=2, ensure_ascii=False, allow_nan=False),
-                    encoding="utf-8",
-                )
-                temporary.replace(cache_file)
-                downloaded += 1
+            saved = {
+                "retrieved_at_utc": datetime.now(timezone.utc).isoformat(),
+                "source_url": url,
+                "payload": payload,
+            }
 
-            tables.append(df)
+            # Write to a temporary file first, then rename it.
+            temporary = cache_file.with_suffix(".tmp")
+            temporary.write_text(
+                json.dumps(saved, indent=2, ensure_ascii=False, allow_nan=False),
+                encoding="utf-8",
+            )
+            temporary.replace(cache_file)
+            downloaded += 1
+
+        tables.append(df)
 
     history = pd.concat(tables, ignore_index=True)
     history = history.sort_values("mtu_start").reset_index(drop=True)

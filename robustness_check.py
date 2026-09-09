@@ -1,78 +1,26 @@
+"""Apply the same time windows to the original and earlier periods."""
 import pandas as pd
-
+from charts import OUTPUT, difference_chart
 from market_data import load_prices
+from metrics import PERIODS, hourly_table, compare_windows, summarize
 
 
-# Keep these windows fixed, as selected in our original analysis.
-AFTERNOON_HOURS = [13, 14, 15]       # 13:00–16:00
-EVENING_HOURS = [19, 20, 21, 22]    # 19:00–23:00
+def main():
+    summaries, comparisons = [], []
+    for label, start, end in PERIODS:
+        comparison = compare_windows(hourly_table(load_prices(start, end)))
+        summaries.append(summarize(comparison, label))
+        comparison["period"] = label
+        comparisons.append(comparison)
+    summary = pd.concat(summaries, ignore_index=True)
+    daily = pd.concat(comparisons).sort_index()
+    OUTPUT.mkdir(exist_ok=True)
+    summary.to_csv(OUTPUT / "period_comparison.csv", index=False, float_format="%.6f")
+    daily.to_csv(OUTPUT / "daily_price_difference.csv", float_format="%.6f")
+    difference_chart(daily)
+    print(summary.round(2).to_string(index=False))
+    print("Chart and detailed tables saved in outputs/.")
 
-PERIODS = [
-    ("Original sample", "2026-08-11", "2026-09-07"),
-    ("Earlier sample", "2026-07-14", "2026-08-10"),
-]
 
-results = []
-
-for label, start_date, end_date in PERIODS:
-    print(f"\n--- {label}: {start_date} to {end_date} ---")
-
-    history = load_prices(start_date, end_date)
-
-    history["delivery_date"] = history["time_estonia"].dt.date
-    history["hour"] = history["time_estonia"].dt.hour
-
-    # One row per day, one column per local hour.
-    hourly = (
-        history.groupby(["delivery_date", "hour"])["price_eur_mwh"]
-        .mean()
-        .unstack("hour")
-    )
-
-    comparison = pd.DataFrame({
-        "afternoon": hourly[AFTERNOON_HOURS].mean(axis=1),
-        "evening": hourly[EVENING_HOURS].mean(axis=1),
-    })
-
-    comparison["difference"] = (
-        comparison["evening"] - comparison["afternoon"]
-    )
-
-    comparison["day_type"] = [
-        "Weekend" if pd.Timestamp(date).dayofweek >= 5 else "Weekday"
-        for date in comparison.index
-    ]
-
-    # Report the full period and its weekday/weekend subsets.
-    for group_name in ["All days", "Weekday", "Weekend"]:
-        if group_name == "All days":
-            subset = comparison
-        else:
-            subset = comparison[comparison["day_type"] == group_name]
-
-        difference = subset["difference"]
-
-        results.append({
-            "period": label,
-            "group": group_name,
-            "days": len(subset),
-            "evening_higher_days": int((difference > 0).sum()),
-            "evening_higher_pct": 100 * (difference > 0).mean(),
-            "mean_difference": difference.mean(),
-            "median_difference": difference.median(),
-        })
-
-    # Show exceptions instead of hiding them inside an average.
-    exceptions = comparison[comparison["difference"] <= 0]
-
-    print("\nDays evening was cheaper or equal:")
-    if exceptions.empty:
-        print("None")
-    else:
-        print(exceptions.round(2).to_string())
-
-summary = pd.DataFrame(results)
-
-print("\nPERIOD COMPARISON")
-print("Differences are evening minus afternoon, in EUR/MWh.")
-print(summary.round(2).to_string(index=False))
+if __name__ == "__main__":
+    main()

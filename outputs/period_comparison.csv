@@ -1,0 +1,7 @@
+period,group,days,evening_higher_days,evening_higher_pct,mean_difference,median_difference
+Original sample,All days,28,27,96.428571,73.407374,64.967083
+Original sample,Weekday,20,19,95.000000,85.017167,76.025729
+Original sample,Weekend,8,8,100.000000,44.382891,27.726979
+Earlier sample,All days,28,28,100.000000,63.519338,60.412396
+Earlier sample,Weekday,20,20,100.000000,71.958698,70.279375
+Earlier sample,Weekend,8,8,100.000000,42.420937,42.947500
